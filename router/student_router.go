@@ -5,6 +5,7 @@ import (
  "gin-gorm-crud/controller"
 )
 
+// StudentRouter sets up and returns a new router for handling student-related routes.
 func StudentRouter(StudentController *controller.StudentController) *gin.Engine {
  service := gin.Default()
 

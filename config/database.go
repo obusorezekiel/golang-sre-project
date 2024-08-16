@@ -10,6 +10,7 @@ import (
  "github.com/joho/godotenv"
 )
 
+// DatabaseConnection establishes a connection to the database using the provided configuration.
 func DatabaseConnection() *gorm.DB {
  err := godotenv.Load()
     if err != nil {

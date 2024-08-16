@@ -7,10 +7,13 @@ import (
  "gorm.io/gorm"
 )
 
+// StudentRepository defines the methods for interacting with student data in the repository.
 type StudentRepositoryImpl struct {
  Db *gorm.DB
 }
 
+// NewStudentRepositoryImpl creates a new instance of StudentRepositoryImpl.
+// It returns a pointer to the newly created StudentRepository
 func NewStudentRepositoryImpl(Db *gorm.DB) (StudentRepository) {
  return &StudentRepositoryImpl{Db: Db}
 }
@@ -24,20 +27,22 @@ func (t StudentRepositoryImpl) FindAll() (students []model.Student, err error) {
  return students, nil
 }
 
-func (t StudentRepositoryImpl) FindById(studentId int) (student model.Student, err error) {
- result := t.Db.Find(&student, studentId)
+// FindByID retrieves a student by their ID from the repository.
+func (t StudentRepositoryImpl) FindByID(studentID int) (student model.Student, err error) {
+ result := t.Db.Find(&student, studentID)
  
  if result.Error != nil {
   return model.Student{}, result.Error
  }
 
  if result.RowsAffected == 0 {
-  return model.Student{}, errors.New("Task is not found")
+  return model.Student{}, errors.New("Student is not found")
  }
 
  return student, nil
 }
 
+// Save stores a new student or updates an existing student's details in the repository
 func (t *StudentRepositoryImpl) Save(student model.Student) error {
  result := t.Db.Create(&student)
  if result.Error != nil {
@@ -47,9 +52,10 @@ func (t *StudentRepositoryImpl) Save(student model.Student) error {
  return nil
 }
 
+// Update modifies an existing student's details in the repository.
 func (t *StudentRepositoryImpl) Update(student model.Student) error {
  var data = request.UpdateStudentRequest{
-  Id:   student.Id,
+  ID:   student.ID,
   Name: student.Name,
   Description: student.Description,
  }
@@ -62,10 +68,11 @@ func (t *StudentRepositoryImpl) Update(student model.Student) error {
  return nil
 }
 
-func (t *StudentRepositoryImpl) Delete(studentId int) error {
+// Delete removes a student from the repository by their ID.
+func (t *StudentRepositoryImpl) Delete(studentID int) error {
  var student model.Student
 
- result := t.Db.Where("id = ?", studentId).Delete(&student)
+ result := t.Db.Where("id = ?", studentID).Delete(&student)
  if result.Error != nil {
   return result.Error
  }

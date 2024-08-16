@@ -9,11 +9,15 @@ import (
  "errors"
 )
 
+// StudentServiceImpl is the concrete implementation of the StudentService interface,
+// providing the business logic for handling student-related operations.
 type StudentServiceImpl struct {
  StudentRepository repository.StudentRepository
  Validate      *validator.Validate
 }
 
+// NewStudentServiceImpl creates a new instance of StudentServiceImpl with the provided repository.
+// It sets up the service layer for handling student-related operations.
 func NewStudentServiceImpl(StudentRepository repository.StudentRepository, validate *validator.Validate) (service StudentService, err error) {
  if validate == nil {
   return nil, errors.New("validator instance cannot be nil")
@@ -24,6 +28,7 @@ func NewStudentServiceImpl(StudentRepository repository.StudentRepository, valid
  }, err
 }
 
+// FindAll retrieves all students from the repository.
 func (t StudentServiceImpl) FindAll() (students []response.StudentResponse, err error) {
  result, err := t.StudentRepository.FindAll()
  if err != nil {
@@ -33,7 +38,7 @@ func (t StudentServiceImpl) FindAll() (students []response.StudentResponse, err 
  
  for _, value := range result {
 	student := response.StudentResponse{
-	 Id:   value.Id,
+	 ID:   value.ID,
 	 Name: value.Name,
 	 Description: value.Description,
 	}
@@ -42,20 +47,22 @@ func (t StudentServiceImpl) FindAll() (students []response.StudentResponse, err 
    return students, nil
   }
 
-func (t StudentServiceImpl) FindById(studentId int) (response.StudentResponse, error) {
- data, err := t.StudentRepository.FindById(studentId)
+// FindByID retrieves all students information by ID from the repository.
+func (t StudentServiceImpl) FindByID(studentID int) (response.StudentResponse, error) {
+ data, err := t.StudentRepository.FindByID(studentID)
  if err != nil {
   return response.StudentResponse{}, err
  }
 
  res := response.StudentResponse{
-  Id:   data.Id,
+  ID:   data.ID,
   Name: data.Name,
   Description: data.Description,
  }
  return res, nil
 }
 
+// Create adds a new student to the repository.
 func (t *StudentServiceImpl) Create(student request.CreateStudentRequest) (err error) {
  err = t.Validate.Struct(student)
 
@@ -73,8 +80,9 @@ func (t *StudentServiceImpl) Create(student request.CreateStudentRequest) (err e
  return nil
 }
 
+// Updates existing information to the repository.
 func (t *StudentServiceImpl) Update(student request.UpdateStudentRequest) (err error) {
- data, err := t.StudentRepository.FindById(student.Id)
+ data, err := t.StudentRepository.FindByID(student.ID)
  
  if err != nil {
   return err
@@ -86,8 +94,9 @@ func (t *StudentServiceImpl) Update(student request.UpdateStudentRequest) (err e
  return nil
 }
 
-func (t *StudentServiceImpl) Delete(studentId int) (err error) {
- err = t.StudentRepository.Delete(studentId)
+// Delete existing information to the repository.
+func (t *StudentServiceImpl) Delete(studentID int) (err error) {
+ err = t.StudentRepository.Delete(studentID)
 
  if err != nil {
   return err

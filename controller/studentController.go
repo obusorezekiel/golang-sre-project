@@ -9,14 +9,19 @@ import (
  "strconv"
 )
 
+// StudentController handles HTTP requests related to student operations.
 type StudentController struct {
  StudentService service.StudentService
 }
 
+// NewStudentController creates and returns a new instance of StudentController.
+// It initializes the controller with necessary dependencies.
 func NewStudentController(service service.StudentService) *StudentController {
  return &StudentController{StudentService: service}
 }
 
+// FindAll retrieves all student records from the database.
+// It returns a slice of Student objects and an error if any occurs during retrieval.
 func (controller *StudentController) FindAll(ctx *gin.Context) {
  data, err := controller.StudentService.FindAll()
 
@@ -37,11 +42,13 @@ func (controller *StudentController) FindAll(ctx *gin.Context) {
  ctx.JSON(http.StatusOK, res)
 }
 
-func (controller *StudentController) FindById(ctx *gin.Context) {
- studentId := ctx.Param("id")
- id, err := strconv.Atoi(studentId)
 
- data, err := controller.StudentService.FindById(id)
+//Find Student by ID in the Database
+func (controller *StudentController) FindByID(ctx *gin.Context) {
+ studentID := ctx.Param("id")
+ id, err := strconv.Atoi(studentID)
+
+ data, err := controller.StudentService.FindByID(id)
  if err != nil {
   ctx.JSON(http.StatusNotFound, response.ErrorResponse{
    Code: 404,
@@ -58,6 +65,8 @@ func (controller *StudentController) FindById(ctx *gin.Context) {
  ctx.JSON(http.StatusOK, res)
 }
 
+
+// Create student Account from Scratch in the postgres DB
 func (controller *StudentController) Create(ctx *gin.Context) {
  req := request.CreateStudentRequest{}
  ctx.ShouldBindJSON(&req)
@@ -80,14 +89,16 @@ func (controller *StudentController) Create(ctx *gin.Context) {
  ctx.JSON(http.StatusOK, res)
 }
 
+
+// Update student records in the Postgres
 func (controller *StudentController) Update(ctx *gin.Context) {
  req := request.UpdateStudentRequest{}
  err := ctx.ShouldBindJSON(&req)
 
- studentId := ctx.Param("id")
- id, err := strconv.Atoi(studentId)
+ studentID := ctx.Param("id")
+ id, err := strconv.Atoi(studentID)
 
- _, err = controller.StudentService.FindById(id)
+ _, err = controller.StudentService.FindByID(id)
  if err != nil {
   ctx.JSON(http.StatusNotFound, response.ErrorResponse{
    Code: 404,
@@ -116,11 +127,12 @@ func (controller *StudentController) Update(ctx *gin.Context) {
  ctx.JSON(http.StatusOK, res)
 }
 
+// Delete the Student's record in the Database
 func (controller *StudentController) Delete(ctx *gin.Context) {
- studentId := ctx.Param("id")
- id, err := strconv.Atoi(studentId)
+ studentID := ctx.Param("id")
+ id, err := strconv.Atoi(studentID)
 
- _, err = controller.StudentService.FindById(id)
+ _, err = controller.StudentService.FindByID(id)
  if err != nil {
   ctx.JSON(http.StatusNotFound, response.ErrorResponse{
    Code: 404,
