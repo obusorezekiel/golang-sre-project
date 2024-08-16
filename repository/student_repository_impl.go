@@ -18,6 +18,7 @@ func NewStudentRepositoryImpl(Db *gorm.DB) (StudentRepository) {
  return &StudentRepositoryImpl{Db: Db}
 }
 
+// StudentRepositoryImpl is an implementation of the StudentRepository interface.
 func (t StudentRepositoryImpl) FindAll() (students []model.Student, err error) {
  results := t.Db.Find(&students)
  if results.Error != nil {

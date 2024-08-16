@@ -80,7 +80,7 @@ func (t *StudentServiceImpl) Create(student request.CreateStudentRequest) (err e
  return nil
 }
 
-// Updates existing information to the repository.
+// Update existing information to the repository.
 func (t *StudentServiceImpl) Update(student request.UpdateStudentRequest) (err error) {
  data, err := t.StudentRepository.FindByID(student.ID)
  

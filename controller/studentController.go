@@ -21,7 +21,6 @@ func NewStudentController(service service.StudentService) *StudentController {
 }
 
 // FindAll retrieves all student records from the database.
-// It returns a slice of Student objects and an error if any occurs during retrieval.
 func (controller *StudentController) FindAll(ctx *gin.Context) {
  data, err := controller.StudentService.FindAll()
 
@@ -43,7 +42,7 @@ func (controller *StudentController) FindAll(ctx *gin.Context) {
 }
 
 
-//Find Student by ID in the Database
+//FindByID finds Student by ID in the Database
 func (controller *StudentController) FindByID(ctx *gin.Context) {
  studentID := ctx.Param("ID")
  ID, err := strconv.Atoi(studentID)
