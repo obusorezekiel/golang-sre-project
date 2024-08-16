@@ -45,10 +45,10 @@ func (controller *StudentController) FindAll(ctx *gin.Context) {
 
 //Find Student by ID in the Database
 func (controller *StudentController) FindByID(ctx *gin.Context) {
- studentID := ctx.Param("id")
- id, err := strconv.Atoi(studentID)
+ studentID := ctx.Param("ID")
+ ID, err := strconv.Atoi(studentID)
 
- data, err := controller.StudentService.FindByID(id)
+ data, err := controller.StudentService.FindByID(ID)
  if err != nil {
   ctx.JSON(http.StatusNotFound, response.ErrorResponse{
    Code: 404,
@@ -95,10 +95,10 @@ func (controller *StudentController) Update(ctx *gin.Context) {
  req := request.UpdateStudentRequest{}
  err := ctx.ShouldBindJSON(&req)
 
- studentID := ctx.Param("id")
- id, err := strconv.Atoi(studentID)
+ studentID := ctx.Param("ID")
+ ID, err := strconv.Atoi(studentID)
 
- _, err = controller.StudentService.FindByID(id)
+ _, err = controller.StudentService.FindByID(ID)
  if err != nil {
   ctx.JSON(http.StatusNotFound, response.ErrorResponse{
    Code: 404,
@@ -107,7 +107,7 @@ func (controller *StudentController) Update(ctx *gin.Context) {
   return
  }
 
- req.Id = id
+ req.ID = ID
 
  err = controller.StudentService.Update(req)
  if err != nil {
@@ -129,10 +129,10 @@ func (controller *StudentController) Update(ctx *gin.Context) {
 
 // Delete the Student's record in the Database
 func (controller *StudentController) Delete(ctx *gin.Context) {
- studentID := ctx.Param("id")
- id, err := strconv.Atoi(studentID)
+ studentID := ctx.Param("ID")
+ ID, err := strconv.Atoi(studentID)
 
- _, err = controller.StudentService.FindByID(id)
+ _, err = controller.StudentService.FindByID(ID)
  if err != nil {
   ctx.JSON(http.StatusNotFound, response.ErrorResponse{
    Code: 404,
@@ -141,7 +141,7 @@ func (controller *StudentController) Delete(ctx *gin.Context) {
   return
  }
  
- err = controller.StudentService.Delete(id)
+ err = controller.StudentService.Delete(ID)
  if err != nil {
   ctx.JSON(http.StatusInternalServerError, response.ErrorResponse{
    Code: 500,
