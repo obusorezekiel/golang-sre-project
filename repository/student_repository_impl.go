@@ -7,7 +7,7 @@ import (
  "gorm.io/gorm"
 )
 
-// StudentRepository defines the methods for interacting with student data in the repository.
+// StudentRepositoryImpl defines the methods for interacting with student data in the repository.
 type StudentRepositoryImpl struct {
  Db *gorm.DB
 }
@@ -18,7 +18,7 @@ func NewStudentRepositoryImpl(Db *gorm.DB) (StudentRepository) {
  return &StudentRepositoryImpl{Db: Db}
 }
 
-// StudentRepositoryImpl is an implementation of the StudentRepository interface.
+// FindAll is an implementation of the StudentRepository interface.
 func (t StudentRepositoryImpl) FindAll() (students []model.Student, err error) {
  results := t.Db.Find(&students)
  if results.Error != nil {
