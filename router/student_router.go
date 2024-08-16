@@ -12,7 +12,7 @@ func StudentRouter(StudentController *controller.StudentController) *gin.Engine 
  router := service.Group("/api/v1/students")
 
  router.GET("", StudentController.FindAll)
- router.GET("/:id", StudentController.FindById)
+ router.GET("/:id", StudentController.FindByID)
  router.POST("",StudentController.Create)
  router.PATCH("/:id", StudentController.Update)
  router.DELETE("/:id", StudentController.Delete)
