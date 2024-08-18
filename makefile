@@ -1,25 +1,11 @@
-# Makefile for a CRUD API built with Go, Gin, and GORM
+up:
+	docker-compose up -d
 
-# Go parameters
-GOCMD=go
-GOBUILD=$(GOCMD) build
-GOTEST=$(GOCMD) test
-GOCLEAN=$(GOCMD) clean
-GOFMT=$(GOCMD) fmt
-GORUN=$(GOCMD) run
-GOMOD=$(GOCMD) mod
-MAIN_NAME=main.go
-BINARY_NAME=gin-gorm-crud
+down:
+	docker-compose down
 
-# Default task
-all: build run
+restart:
+	docker-compose down && docker-compose up -d
 
-# Run go mod tidy to ensure dependencies are correct
-deps:
-	$(GOMOD) tidy
-
-build: deps
-	$(GOBUILD) -o $(BINARY_NAME) -v .
-
-run:
-	./$(BINARY_NAME)
+logs:
+	docker-compose logs -f

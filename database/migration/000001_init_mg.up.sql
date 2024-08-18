@@ -6,5 +6,6 @@ CREATE TABLE "public"."students" (
     "ID" int4 NOT NULL DEFAULT nextval('id_seq'::regclass),
     "name" varchar,
     "description" varchar,
-    PRIMARY KEY ("id")
+    PRIMARY KEY ("ID")
 );
+
