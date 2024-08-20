@@ -11,7 +11,7 @@ metadata:
   namespace: student-api
 data:
   DATABASE_HOST: postgres-db
-  DATABASE_POST: "5432"
+  DATABASE_PORT: "5432"
   DATABASE_NAME: postgres
   DATABASE_USERNAME: obusor
 
