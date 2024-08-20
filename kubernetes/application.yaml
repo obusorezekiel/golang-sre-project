@@ -57,6 +57,11 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: app-config
+                key: DATABASE_HOST
+          - name: DATABASE_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
                 key: DATABASE_PORT
           - name: DATABASE_NAME
             valueFrom:
