@@ -42,6 +42,8 @@ spec:
       labels:
         app: my-db
     spec:
+      nodeSelector:
+        type: application
       containers:
         - name: db-container
           image: postgres:alpine
@@ -55,8 +57,8 @@ spec:
                   key: DATABASE_NAME
             - name: POSTGRES_USER
               valueFrom:
-                secretKeyRef:
-                  name: db-secrets
+                configMapKeyRef:
+                  name: db-config
                   key: DATABASE_USERNAME
             - name: POSTGRES_PASSWORD
               valueFrom:
