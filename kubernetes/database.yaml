@@ -46,7 +46,7 @@ spec:
         type: application
       containers:
         - name: db-container
-          image: postgres:alpine
+          image: postgres:latest
           ports:
             - containerPort: 5432
           env:
