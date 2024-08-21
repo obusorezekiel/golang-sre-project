@@ -5,35 +5,29 @@ metadata:
 
 ---
 apiVersion: v1
-kind: PersistentVolume                        # Create a PV
+kind: PersistentVolume
 metadata:
   name: postgres-pv-volume
   namespace: student-api
-  labels:
-    type: local
-    app: my-postgres
 spec:
-  storageClassName: manual                    # Storage class. A PV Claim requesting the same storageClass can be bound to this volume.
+  storageClassName: manual
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteMany
-  hostPath:                                   # hostPath PersistentVolume is used for development and testing. It uses a file/directory on the Node to emulate network-attached storage
+  hostPath:
     path: "/mnt/data"
-  persistentVolumeReclaimPolicy: Retain       # Retain the PV even after PVC is deleted. 
 
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim                   # Create a PersistentVolumeClaim to request a PersistentVolume storage
-metadata:                                     # Claim name and labels
+kind: PersistentVolumeClaim
+metadata:
   name: postgres-pv-claim
   namespace: student-api
-  labels:
-    app: my-postgres
-spec:                                         # Access mode and resource limits
-  storageClassName: manual                    # Request a certain storage class
+spec:
+  storageClassName: manual
   accessModes:
-    - ReadWriteMany                           # ReadWriteMany means the volume can be mounted as read-write by many Nodes
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
