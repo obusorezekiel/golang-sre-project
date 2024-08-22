@@ -21,6 +21,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: migrations-config
+  namespace: student-api
 data:
   001_initial.sql: |
     CREATE TABLE "public"."students" (
