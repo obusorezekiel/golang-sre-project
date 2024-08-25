@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-go.name" . }}
+  namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{- include "my-go.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{- include "my-go.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8888
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.appconfigMapName | default "app-config" }}
+                  key: DATABASE_HOST
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.appconfigMapName | default "app-config" }}
+                  key: DATABASE_PORT
+            - name: DATABASE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.appconfigMapName | default "app-config" }}
+                  key: DATABASE_NAME
+            - name: DATABASE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.appconfigMapName | default "app-config" }}
+                  key: DATABASE_USERNAME
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.appsecretName | default "app-secrets" }}
+                  key: DATABASE_PASSWORD
+            
+      initContainers:
+        {{- toYaml .Values.initContainers | nindent 8 }}
+     
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

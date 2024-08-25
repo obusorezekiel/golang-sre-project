@@ -18,21 +18,6 @@ data:
 ---
 
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: migrations-config
-  namespace: student-api
-data:
-  001_initial.sql: |
-    CREATE TABLE "public"."students" (
-      "ID" int4 NOT NULL DEFAULT nextval('id_seq'::regclass),
-      "name" varchar(255),
-      "description" varchar(255),
-      PRIMARY KEY ("ID")
-    );
----
-
-apiVersion: v1
 kind: Secret
 metadata:
   name: app-secrets
@@ -98,14 +83,6 @@ spec:
       - name: migrate
         image: obusorezekiel/db-migration:latest
         command: ["migrate", "-path=/migrations", "-database=postgres://obusor:password@postgres-db:5432/postgres?sslmode=disable", "up"]
-      #   volumeMounts:
-      #   - name: migrations
-      #     mountPath: /migrations
-      # volumes:
-      # - name: migrations
-      #   configMap:
-      #     name: migrations-config
-
 ---
 
 apiVersion: v1
