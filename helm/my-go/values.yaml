@@ -16,13 +16,13 @@ appimage:
   repository: obusorezekiel/gin-gorm-crud
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.0"
+  tag: latest
 
 migrationimage:
   repository: obusorezekiel/db-migration:latest
   pullPolicy: IfNotPresenrepositoryt
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.0"
+  tag: latest
 
 dbimage:
   name: db-container
