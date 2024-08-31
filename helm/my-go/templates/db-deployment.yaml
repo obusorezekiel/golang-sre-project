@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.dbname.namespace }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount | default 1 }}
   {{- end }}
   selector:
     matchLabels:
@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
         - name: {{ .Values.dbimage.name }}
-          image: {{ .Values.dbimage.repository }}
+          image: "{{ .Values.dbimage.repository }}:{{ .Values.dbimage.tag | default "latest" }}"
           ports:
-              containerPort: 5432
+            - containerPort: 5432
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
@@ -36,7 +36,7 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Values.dbconfigMapName | default "app-config" }}
+                  name: {{ .Values.dbconfigMapName | default "db-config" }}
                   key: DATABASE_USERNAME
             - name: POSTGRES_PASSWORD
               valueFrom:
@@ -44,8 +44,8 @@ spec:
                   name: {{ .Values.dbsecretName | default "db-secrets" }}
                   key: DATABASE_PASSWORD
           volumeMounts:
-          - mountPath: {{ .Values.volumeMounts.dataMountPath }}
-            name: {{ .Values.volumeMounts.volumeName }}
+            - mountPath: {{ .Values.volumeMounts.dataMountPath }}
+              name: {{ .Values.volumeMounts.volumeName }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -54,15 +54,3 @@ spec:
         - name: {{ .Values.volumes.volumeName }}
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.pvcName }}
-
-
-
-      
-
-
-
-
-
-
-
-      
