@@ -7,11 +7,11 @@ spec:
   replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
-      app: {{ .Values.appLabel | default "student-app" }}
+      app: {{ .Values.appLabel | default "my-app" }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appLabel | default "student-app" }}
+        app: {{ .Values.appLabel | default "my-app" }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
