@@ -26,12 +26,12 @@ spec:
             - name: DATABASE_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Values.dbconfigMapName | default "app-config" }}
+                  name: {{ .Values.dbconfigMapName | default "db-config" }}
                   key: DATABASE_HOST
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Values.dbconfigMapName | default "app-config" }}
+                  name: {{ .Values.dbconfigMapName | default "db-config" }}
                   key: DATABASE_NAME
             - name: POSTGRES_USER
               valueFrom:
@@ -41,7 +41,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.dbsecretName | default "app-secrets" }}
+                  name: {{ .Values.dbsecretName | default "db-secrets" }}
                   key: DATABASE_PASSWORD
           volumeMounts:
           - mountPath: {{ .Values.volumeMounts.dataMountPath }}

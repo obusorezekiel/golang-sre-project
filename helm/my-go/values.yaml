@@ -34,8 +34,8 @@ dbimage:
 appconfigMapName: app-config
 appsecretName: app-secrets
 
-dbconfigMapName: app-config
-dbsecretName: app-secrets
+dbconfigMapName: db-config
+dbsecretName: db-secrets
 
 imagePullSecrets: []
 nameOverride: ""
