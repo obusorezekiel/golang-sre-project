@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.dbService.namespace }}
 spec:
   ports:
-    - port: {{ .Values.dbService.port | default 5432 }}  # Default to port 80 if not defined
+    - port: {{ .Values.dbService.port | default 5432 }}  # Default to port 5432 if not defined
       targetPort: {{ .Values.dbService.targetPort | default 5432 }}
       protocol: TCP
   selector:
