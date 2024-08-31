@@ -4,8 +4,13 @@
 
 replicaCount: 1
 
+appname:
+  name: app-deployment
+  namespace: student-api
+
 dbname:
   name: db-deployment
+  namespace: student-api
 
 appimage:
   repository: obusorezekiel/gin-gorm-crud
@@ -37,7 +42,8 @@ nameOverride: ""
 namespaceOverride: student-api
 fullnameOverride: ""
 
-appLabel: my-db
+appLabel: student-app
+dbLabel: my-db
 
 serviceAccount:
   # Specifies whether a service account should be created

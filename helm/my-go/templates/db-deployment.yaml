@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}
-  namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
+  name: {{ .Values.dbname.name }}
+  namespace: {{ .Values.dbname.namespace }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      app: {{ .Values.appLabel | default "my-db" }}
+      app: {{ .Values.dbLabel | default "my-db" }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appLabel | default "my-db" }}
+        app: {{ .Values.dbLabel | default "my-db" }}
     spec:
       containers:
         - name: {{ .Values.dbimage.name }}

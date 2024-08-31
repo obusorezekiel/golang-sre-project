@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "my-go.name" . }}
-  namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
+  name: {{ .Values.appname.name }}
+  namespace: {{ .Values.appname.namespace }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      app: {{- include "my-go.selectorLabels" . | nindent 6 }}
+      app: {{ .Values.appLabel | default "my-db" }}
   template:
     metadata:
       labels:
-        app: {{- include "my-go.selectorLabels" . | nindent 8 }}
+        app: {{ .Values.appLabel | default "my-db" }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
