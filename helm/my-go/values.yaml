@@ -63,16 +63,18 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
-app-service:
+appService:
   name: app-service
+  nameSpace: student-api
   type: Loadbalancer
   port: 80
   targetPort: 8888
 
-db-service:
-  name: app-service
-  type: ClusterIP
-  port: 80
+dbService:
+  name: db-service
+  namespace: my-namespace
+  port: 5432
+  targetPort: 5432
 
 database:
   host: postgres-db
