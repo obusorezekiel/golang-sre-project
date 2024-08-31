@@ -72,13 +72,13 @@ securityContext:
 appService:
   name: app-service
   nameSpace: student-api
-  type: Loadbalancer
+  type: LoadBalancer
   port: 80
   targetPort: 8888
 
 dbService:
   name: db-service
-  namespace: my-namespace
+  namespace: student-api
   port: 5432
   targetPort: 5432
 

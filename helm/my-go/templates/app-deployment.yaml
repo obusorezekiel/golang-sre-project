@@ -4,16 +4,14 @@ metadata:
   name: {{ .Values.appname.name }}
   namespace: {{ .Values.appname.namespace }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
-      app: {{ .Values.appLabel | default "my-db" }}
+      app: {{ .Values.appLabel | default "student-app" }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appLabel | default "my-db" }}
+        app: {{ .Values.appLabel | default "student-app" }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -51,11 +49,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.appsecretName | default "app-secrets" }}
                   key: DATABASE_PASSWORD
-            
       initContainers:
         {{- toYaml .Values.initContainers | nindent 8 }}
-     
-      {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
