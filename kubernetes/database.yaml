@@ -32,7 +32,6 @@ spec:
     requests:
       storage: 5Gi
 ---
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -54,7 +53,6 @@ data:
   DATABASE_PASSWORD: cGFzc3dvcmQ=
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -75,10 +73,6 @@ spec:
       containers:
         - name: db-container
           image: postgres:latest
-          resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
           ports:
             - containerPort: 5432
           env:
@@ -109,10 +103,8 @@ spec:
         - name: postgres-persistent-storage
           persistentVolumeClaim:
             claimName: postgres-pv-claim
- 
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
