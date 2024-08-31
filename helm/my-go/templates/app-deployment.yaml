@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.appimage.repository | default "obusorezekiel/gin-gorm-crud" }}:{{ .Values.appimage.tag | default latest }}"
+          imagePullPolicy: {{ .Values.appimage.pullPolicy | default "IfNotPresent" }}
           ports:
             - name: http
               containerPort: 8888
