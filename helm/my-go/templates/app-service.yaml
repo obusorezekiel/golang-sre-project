@@ -10,4 +10,4 @@ spec:
       targetPort: {{ .Values.appService.targetPort }}
       protocol: TCP
   selector:
-    {{- include "my-go.selectorLabels" . | nindent 4 }}
+    app: student-app
