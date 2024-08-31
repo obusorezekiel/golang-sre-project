@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.db-service.name }}
-  namespace: {{ .Values.db-service.namespace }}
+  name: {{ .Values.dbService.name }}
+  namespace: {{ .Values.dbService.namespace }}
 spec:
   ports:
-    - port: {{ .Values.service.port | default 5432 }}  # Default to port 80 if not defined
-      targetPort: {{ .Values.service.targetPort | default 5432 }}
+    - port: {{ .Values.dbService.port | default 5432 }}  # Default to port 80 if not defined
+      targetPort: {{ .Values.dbService.targetPort | default 5432 }}
       protocol: TCP
   selector:
     {{- include "my-go.selectorLabels" . | nindent 4 }}
