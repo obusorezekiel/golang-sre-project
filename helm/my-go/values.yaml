@@ -83,10 +83,10 @@ dbService:
   targetPort: 5432
 
 database:
-  host: postgres-db
+  host: "postgres-db"
   port: "5432"
-  name: postgres
-  username: obusor
+  name: "postgres"
+  username: "obusor"
 
 secret:
   databasePassword: password
