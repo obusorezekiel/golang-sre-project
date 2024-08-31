@@ -32,7 +32,9 @@ dbimage:
   tag: ""
 
 appconfigMapName: app-config
-appsecretName: app-secrets
+appsecretName:
+  name: app-secrets
+  namespace: student-api
 
 dbconfigMapName: db-config
 dbsecretName: db-secrets

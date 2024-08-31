@@ -9,4 +9,4 @@ spec:
       targetPort: {{ .Values.dbService.targetPort | default 5432 }}
       protocol: TCP
   selector:
-    {{- include "my-go.selectorLabels" . | nindent 4 }}
+    app: my-db
