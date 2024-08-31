@@ -77,7 +77,7 @@ appService:
   targetPort: 8888
 
 dbService:
-  name: db-service
+  name: postgres-db
   namespace: student-api
   port: 5432
   targetPort: 5432
