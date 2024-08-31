@@ -4,10 +4,10 @@ metadata:
   name: {{ .Values.app.name }}
   namespace: {{ .Values.namespaceOverride | default .Release.Namespace }}
 spec:
-  type: {{ .Values.app-service.type }}
+  type: {{ .Values.appService.type }}
   ports:
-    - port: {{ .Values.app-service.port }}
-      targetPort: {{ .Values.app-service.targetPort }}
+    - port: {{ .Values.appService.port }}
+      targetPort: {{ .Values.appService.targetPort }}
       protocol: TCP
   selector:
     {{- include "my-go.selectorLabels" . | nindent 4 }}
