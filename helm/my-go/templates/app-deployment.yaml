@@ -50,6 +50,8 @@ spec:
                   name: {{ .Values.appsecretName | default "app-secrets" }}
                   key: DATABASE_PASSWORD
       initContainers:
-        {{- toYaml .Values.initContainers | nindent 8 }}
+        - name: migrate
+          image: obusorezekiel/db-migration:latest
+          command: ["migrate", "-path=/migrations", "-database=postgres://obusor:password@postgres-db:5432/postgres?sslmode=disable", "up"]
       nodeSelector:
         {{- toYaml .Values.nodeSelector | nindent 8 }}
