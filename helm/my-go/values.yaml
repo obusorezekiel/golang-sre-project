@@ -35,7 +35,7 @@ appconfigMapName: app-config
 appsecretName: app-secrets
 
 dbconfigMapName: db-config
-dbsecretName: db-secrets
+dbsecretName: postgres-secret
 
 imagePullSecrets: []
 nameOverride: ""

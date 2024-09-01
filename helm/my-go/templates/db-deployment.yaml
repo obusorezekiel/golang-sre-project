@@ -41,8 +41,8 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.dbsecretName | default "db-secrets" }}
-                  key: DATABASE_PASSWORD
+                  name: {{ .Values.dbsecretName | default "postgres-secret" }}
+                  key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: {{ .Values.volumeMounts.dataMountPath }}
               name: {{ .Values.volumeMounts.volumeName }}
