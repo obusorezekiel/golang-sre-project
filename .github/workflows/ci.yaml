@@ -84,7 +84,7 @@ jobs:
 
       - name: Update Tag in Values YAML
         run: |
-          sed -i "s|apptag:.*|tag: $VERSION|g" helm/my-go/values.yaml
+          sed -i "s|apptag:.*|apptag: $VERSION|g" helm/my-go/values.yaml
           cat helm/my-go/values.yaml
         env:
           github_token: ${{ secrets.GH_PAT }}
