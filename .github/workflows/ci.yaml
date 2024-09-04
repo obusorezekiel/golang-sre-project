@@ -11,6 +11,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write  # Ensure GITHUB_TOKEN has write permissions
+
 jobs:
   build:
     runs-on: ubuntu-latest
