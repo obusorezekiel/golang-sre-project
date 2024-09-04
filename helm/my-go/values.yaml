@@ -17,7 +17,7 @@ appimage:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
 
-apptag: latest
+apptag: VERSION_TAG
 
 migrationimage:
   repository: obusorezekiel/db-migration:latest
