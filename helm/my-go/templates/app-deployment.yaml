@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.appimage.repository | default "obusorezekiel/gin-gorm-crud" }}:{{ .Values.appimage.tag | default "latest" }}"
+          image: "{{ .Values.appimage.repository | default "obusorezekiel/gin-gorm-crud" }}:{{ .Values.apptag }}"
           imagePullPolicy: {{ .Values.appimage.pullPolicy | default "IfNotPresent" }}
           ports:
             - name: http
