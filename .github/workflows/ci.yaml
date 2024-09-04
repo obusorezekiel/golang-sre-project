@@ -53,7 +53,7 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          version=$(git describe --tags --abbrev=0)
+          version=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           echo "VERSION=${version}" >> $GITHUB_ENV
     
       # Docker build and push
@@ -79,8 +79,8 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-         version=$(git describe --tags --abbrev=0)
-         echo "VERSION=${version}" >> $GITHUB_ENV
+          version=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "VERSION=${version}" >> $GITHUB_ENV
 
       - name: Update Tag in Values YAML
         run: |
