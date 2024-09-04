@@ -53,8 +53,7 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          version=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          echo "VERSION=${version}" >> $GITHUB_ENV
+          echo "VERSION_TAG=v1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
     
       # Docker build and push
       - name: Build and push
@@ -62,7 +61,7 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ env.VERSION }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:${{ env.VERSION_TAG }}
 
   update-deployment:
       runs-on: ubuntu-latest
@@ -79,12 +78,12 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          version=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "VERSION_TAG=v1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
           echo "VERSION=${version}" >> $GITHUB_ENV
 
       - name: Update Tag in Values YAML
         run: |
-          sed -i "s|apptag:.*|apptag: $VERSION|g" helm/my-go/values.yaml
+          sed -i "s|apptag:.*|apptag: VERSION_TAG|g" helm/my-go/values.yaml
           cat helm/my-go/values.yaml
         env:
           github_token: ${{ secrets.GH_PAT }}
