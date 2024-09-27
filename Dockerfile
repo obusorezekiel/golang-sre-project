@@ -26,7 +26,7 @@ ENV GIN_MODE=release \
     DATABASE_PORT=5432 \
     DATABASE_USERNAME=obusor \
     DATABASE_PASSWORD=password \
-    DATABASE_NAME=postgres
+    DATABASE_NAME=mydatabase
 
 # Expose the port the app runs on
 EXPOSE 8888
